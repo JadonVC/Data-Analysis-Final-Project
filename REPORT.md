@@ -1,44 +1,32 @@
-##1. Introduction
+# 1. Introduction
 
 This project analyzes U.S. housing market activity using data from Redfin’s City Market Tracker. The dataset contains millions of city-month observations with metrics including median price per square foot (PPSF), median list price, inventory, days on market, supply indicators, and seller behavior metrics.
 
 The primary goal of this analysis is to build a predictive model for:
 
-#Target Variable:
+## Target Variable:
 
 Median Price Per Square Foot (PPSF)
 
 Model Chosen:
 
-Random Forest Regression, due to:
+Random Forest Regression, due to: Ability to handle nonlinear relationships / Strong predictive accuracy / Built-in feature importance / Minimal data assumptions and resistance to overfitting. This report documents data extraction, cleaning, filtering, modeling, and analysis results.
 
-Ability to handle nonlinear relationships
-
-Strong predictive accuracy
-
-Built-in feature importance
-
-Minimal data assumptions
-
-Resistance to overfitting
-
-This report documents data extraction, cleaning, filtering, modeling, and analysis results.
-
-2. Data Extraction
+# 2. Data Extraction
 
 The dataset was delivered as a large ZIP file. To maintain reproducibility, extraction was performed programmatically:
 
+
 import zipfile
-
 zip_path = "archive.zip"
-
 with zipfile.ZipFile(zip_path, 'r') as zip_ref:
     zip_ref.extractall("./redfin_data")
 
 
+
 All files were extracted into a dedicated directory (./redfin_data) which serves as the data ingestion layer for the project.
 
-3. File Size Inspection
+# 3. File Size Inspection
 
 Before loading the TSV file, its size was checked:
 
@@ -48,7 +36,7 @@ os.path.getsize("city_market_tracker.tsv000") / (1024*1024)
 
 The file is very large, confirming that full in-memory loading could overwhelm system resources. Because of this, the project relied on partial loading using nrows=.
 
-4. Data Loading and Initial Exploration
+# 4. Data Loading and Initial Exploration
 
 To inspect structure and confirm column names:
 
@@ -58,7 +46,7 @@ df = pd.read_csv("redfin_data/city_market_tracker.tsv000",
 
 A smaller 30-row sample was also loaded to extract the full column list.
 
-5. Feature Selection
+# 5. Feature Selection
 
 The following variables were selected due to their relevance to pricing and supply-demand dynamics:
 
@@ -85,7 +73,7 @@ df_model = df[cols].dropna().copy()
 
 Columns were standardized to lowercase.
 
-6. Exploratory Data Analysis (EDA)
+# 6. Exploratory Data Analysis (EDA)
 Initial PPSF Distribution
 
 A histogram of PPSF showed several extreme outliers, including values over $3,000–5,000 per square foot. These distort the model.
@@ -105,7 +93,7 @@ Filtered PPSF (<2000) distribution
 
 Filtering produced a more stable, representative dataset.
 
-7. Modeling: Random Forest Regression
+# 7. Modeling: Random Forest Regression
 Feature/Target Split
 target = "median_ppsf"
 features = [
@@ -129,7 +117,7 @@ model = RandomForestRegressor(
 
 The model was trained and predictions generated.
 
-8. Model Evaluation
+# 8. Model Evaluation
 
 Metrics were calculated:
 
@@ -161,7 +149,7 @@ Strong model fit
 
 Reduced variance compared to the unfiltered dataset
 
-9. Feature Importance Analysis
+# 9. Feature Importance Analysis
 importances = model.feature_importances_
 
 
@@ -191,7 +179,7 @@ Higher list prices reflect stronger local markets
 
 Competitive bidding (sale-to-list ratio) pushes PPSF upward
 
-10. Key Findings
+# 10. Key Findings
 
 ✓ The Redfin dataset is extremely large and requires memory-efficient loading.
 ✓ PPSF contains unrealistic outliers that must be removed before modeling.
@@ -200,7 +188,7 @@ Competitive bidding (sale-to-list ratio) pushes PPSF upward
 ✓ Competitive conditions (sale-to-list ratio, sold above list) significantly influence PPSF.
 ✓ Outlier filtering improved MAE, RMSE, and R².
 
-11. Conclusion
+# 11. Conclusion
 
 This project successfully built a predictive model for median price per square foot using city-level Redfin housing data. The workflow demonstrates professional-grade data science practices:
 
@@ -220,7 +208,7 @@ Visual diagnostics
 
 This modeling pipeline can be extended to market forecasting, metro comparisons, and real estate pricing dashboards.
 
-12. Next Steps
+# 12. Next Steps
 
 Potential extensions include:
 
