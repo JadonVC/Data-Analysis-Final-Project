@@ -212,14 +212,3 @@ Visual diagnostics
 
 This modeling pipeline can be extended to market forecasting, metro comparisons, and real estate pricing dashboards.
 
-# 12. Next Steps
-
-Potential extensions include:
-
-Modeling at the metro or zip-code level
-
-Time-series forecasting (Prophet, LSTM)
-
-Incorporating macroeconomic data (rates, CPI, employment)
-
-Building an interactive dashboard (Plotly, Tableau, Streamlit)
