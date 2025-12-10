@@ -1,10 +1,10 @@
-1. Introduction
+##1. Introduction
 
 This project analyzes U.S. housing market activity using data from Redfin’s City Market Tracker. The dataset contains millions of city-month observations with metrics including median price per square foot (PPSF), median list price, inventory, days on market, supply indicators, and seller behavior metrics.
 
 The primary goal of this analysis is to build a predictive model for:
 
-Target Variable:
+#Target Variable:
 
 Median Price Per Square Foot (PPSF)
 
