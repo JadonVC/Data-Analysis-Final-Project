@@ -17,10 +17,10 @@ Random Forest Regression, due to: Ability to handle nonlinear relationships / St
 The dataset was delivered as a large ZIP file. To maintain reproducibility, extraction was performed programmatically:
 
 
-import zipfile
-zip_path = "archive.zip"
-with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-    zip_ref.extractall("./redfin_data")
+`import zipfile`    
+`zip_path = "archive.zip"`    
+`with zipfile.ZipFile(zip_path, 'r') as zip_ref:`    
+    `zip_ref.extractall("./redfin_data")`
 
 
 
@@ -30,8 +30,8 @@ All files were extracted into a dedicated directory (./redfin_data) which serves
 
 Before loading the TSV file, its size was checked:
 
-import os
-os.path.getsize("city_market_tracker.tsv000") / (1024*1024)
+`import os`    
+`os.path.getsize("city_market_tracker.tsv000") / (1024*1024)`
 
 
 The file is very large, confirming that full in-memory loading could overwhelm system resources. Because of this, the project relied on partial loading using nrows=.
@@ -40,8 +40,8 @@ The file is very large, confirming that full in-memory loading could overwhelm s
 
 To inspect structure and confirm column names:
 
-df = pd.read_csv("redfin_data/city_market_tracker.tsv000",
-                 sep="\t", nrows=100000)
+`df = pd.read_csv("redfin_data/city_market_tracker.tsv000",`    
+                 `sep="\t", nrows=100000)`
 
 
 A smaller 30-row sample was also loaded to extract the full column list.
@@ -51,24 +51,24 @@ A smaller 30-row sample was also loaded to extract the full column list.
 The following variables were selected due to their relevance to pricing and supply-demand dynamics:
 
 Column	Meaning
-MEDIAN_PPSF	Target variable
-MEDIAN_LIST_PRICE	Overall market pricing level
-INVENTORY	Units available for sale
-MEDIAN_DOM	Average days on market
-AVG_SALE_TO_LIST	Buyer aggressiveness
-MONTHS_OF_SUPPLY	Supply-demand balance
-PRICE_DROPS	Seller price adjustments
-SOLD_ABOVE_LIST	Competitiveness of offers
+`MEDIAN_PPSF`    	Target variable
+`MEDIAN_LIST_PRICE`	    Overall market pricing level
+`INVENTORY`	    Units available for sale
+`MEDIAN_DOM`	    Average days on market
+`AVG_SALE_TO_LIST`	    Buyer aggressiveness
+`MONTHS_OF_SUPPLY`	    Supply-demand balance
+`PRICE_DROPS`	    Seller price adjustments
+`SOLD_ABOVE_LIST`    	Competitiveness of offers
 
 Subset created:
 
-cols = [
-    "MEDIAN_PPSF", "MEDIAN_LIST_PRICE", "INVENTORY",
-    "MEDIAN_DOM", "AVG_SALE_TO_LIST", "MONTHS_OF_SUPPLY",
-    "PRICE_DROPS", "SOLD_ABOVE_LIST"
-]
+`cols = [`    
+    `"MEDIAN_PPSF", "MEDIAN_LIST_PRICE", "INVENTORY",`    
+    `"MEDIAN_DOM", "AVG_SALE_TO_LIST", "MONTHS_OF_SUPPLY",`    
+    `"PRICE_DROPS", "SOLD_ABOVE_LIST"`    
+`]`    
 
-df_model = df[cols].dropna().copy()
+`df_model = df[cols].dropna().copy()`    
 
 
 Columns were standardized to lowercase.
@@ -82,7 +82,7 @@ Outlier Removal
 
 A realistic market threshold was applied:
 
-df_filtered = df_model[df_model["median_ppsf"] < 2000]
+`df_filtered = df_model[df_model["median_ppsf"] < 2000]`    
 
 
 Two distribution plots were created:
@@ -95,24 +95,27 @@ Filtering produced a more stable, representative dataset.
 
 # 7. Modeling: Random Forest Regression
 Feature/Target Split
-target = "median_ppsf"
-features = [
-    "median_list_price", "inventory", "median_dom",
-    "avg_sale_to_list", "months_of_supply",
-    "price_drops", "sold_above_list"
-]
+
+`target = "median_ppsf"`    
+`features = [`    
+    `"median_list_price", "inventory", "median_dom",`    
+    `"avg_sale_to_list", "months_of_supply",`    
+    `"price_drops", "sold_above_list"`    
+`]`    
 
 Train/Test Split
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
+
+`X_train, X_test, y_train, y_test = train_test_split(`    
+    `X, y, test_size=0.2, random_state=42`    
+`)`    
 
 Model Configuration
-model = RandomForestRegressor(
-    n_estimators=300,
-    random_state=42,
-    n_jobs=-1
-)
+
+`model = RandomForestRegressor(`    
+    `n_estimators=300,`    
+    `random_state=42,`    
+    `n_jobs=-1`    
+`)`    
 
 
 The model was trained and predictions generated.
@@ -121,20 +124,20 @@ The model was trained and predictions generated.
 
 Metrics were calculated:
 
-MAE
+`MAE`    
 
-RMSE
+`RMSE`    
 
-R² Score
+`R² Score`    
 
 After Filtering Out Outliers
 
 The model significantly improved:
 
 AFTER OUTLIER REMOVAL:
-MAE:  <insert value>
-RMSE: <insert value>
-R²:   <insert value>
+`MAE:  <insert value>`    
+`RMSE: <insert value>`    
+`R²:   <insert value>`    
 
 
 (Values will appear after running your notebook.)
@@ -150,7 +153,8 @@ Strong model fit
 Reduced variance compared to the unfiltered dataset
 
 # 9. Feature Importance Analysis
-importances = model.feature_importances_
+
+`importances = model.feature_importances_`    
 
 
 The most influential predictors were:
