@@ -185,12 +185,12 @@ Competitive bidding (sale-to-list ratio) pushes PPSF upward
 
 # 10. Key Findings
 
-✓ The Redfin dataset is extremely large and requires memory-efficient loading.
-✓ PPSF contains unrealistic outliers that must be removed before modeling.
-✓ Random Forest regression delivers strong predictive performance.
-✓ Housing supply indicators (months-of-supply, inventory) are top predictors.
-✓ Competitive conditions (sale-to-list ratio, sold above list) significantly influence PPSF.
-✓ Outlier filtering improved MAE, RMSE, and R².
+✓ The Redfin dataset is extremely large and requires memory-efficient loading.    
+✓ PPSF contains unrealistic outliers that must be removed before modeling.    
+✓ Random Forest regression delivers strong predictive performance.    
+✓ Housing supply indicators (months-of-supply, inventory) are top predictors.    
+✓ Competitive conditions (sale-to-list ratio, sold above list) significantly influence PPSF.    
+✓ Outlier filtering improved MAE, RMSE, and R².    
 
 # 11. Conclusion
 
